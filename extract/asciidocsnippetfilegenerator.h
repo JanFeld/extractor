@@ -74,6 +74,9 @@ public:
     const std::filesystem::path& outputFilePath() const;
     AsciidocSnippetFileGenerator& outputFilePath(const std::filesystem::path& path);
 
+    const std::string& projectSubDir() const;
+    AsciidocSnippetFileGenerator& projectSubDir(const std::string& subDir);
+
     bool lineNumbers() const;
     AsciidocSnippetFileGenerator& lineNumbers(bool numbering = true);
 
@@ -93,6 +96,7 @@ private:
     std::string mMultiSnippetDeliminterString{"\n// ... lines omitted ...\n\n"};
 
     std::filesystem::path mOutputFilePath;
+    std::string mProjectSubDir{};
 
     bool mSkipCallouts{false};
     bool mSkipSourceCaption{false};

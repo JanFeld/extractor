@@ -42,7 +42,7 @@ bool AsciidocSnippetFileGenerator::generate()
     std::ifstream original{mExtractor.path().string()};
     std::filesystem::path originalFilePath{mExtractor.path()};
     std::filesystem::path formattedFilePath{mExtractor.path()};
-    
+
     std::stringstream formattedFileExtension;
     formattedFileExtension << originalFilePath.extension().string() << AsciidocSnippetFileGenerator::FormattedFileExtension;
     formattedFilePath.replace_extension(formattedFileExtension.str());
@@ -234,6 +234,18 @@ AsciidocSnippetFileGenerator& AsciidocSnippetFileGenerator::subDirectoryName(con
 {
     mSubDirectoryName = name;
     return *this;
+}
+
+
+const std::string& AsciidocSnippetFileGenerator::projectSubDir() const
+{
+	return mProjectSubDir;
+}
+
+AsciidocSnippetFileGenerator& AsciidocSnippetFileGenerator::projectSubDir(const std::string& subDir)
+{
+	mProjectSubDir = subDir;
+	return *this;
 }
 
 const std::string& AsciidocSnippetFileGenerator::language() const
