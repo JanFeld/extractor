@@ -106,7 +106,7 @@ private:
 
     std::string mExcludeMarker{"// ...\n"};
 
-    std::string mCaption{".Zeilen aus der Datei link:{srcbase}/{srcdir}/%f.html[`%f`,window=\"newwindows\"] %s %o"};
+    std::string mCaption{".Zeilen aus der Datei link:{srcbase}/{srcdir}%p/%f.html[`%f`,window=\"newwindows\"] %s %o"};
 
     static const char* BlockType;
     static const char* Intro;

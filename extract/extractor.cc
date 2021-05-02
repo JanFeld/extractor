@@ -61,6 +61,7 @@ int main(int argc, char* argv[])
     std::vector<std::string> astyleOptions;
     std::string outputFilePath;
     std::string extractorSubDir;
+    std::string projectSubDir;
     std::string sourceFile;
     std::error_code error_code;
     int indent{0};
@@ -79,6 +80,7 @@ int main(int argc, char* argv[])
                 | opt(outputFilePath, "output file path")["-o"]["--output"]("extractors output file path")
                 | opt(extractorSubDir, "extractor subdirectory")["-d"]["--subdir"]("output directory of generated snippets")
                 | opt(showLineNumbers)["-n"]["--line-number"]("show line numbers in extracts")
+                | opt(projectSubDir, "project subdirectory")["-p"]["--project-subdir"]("use project subdirectory in caption links")
                 | opt(indent, "indentation")["--indent"]("amount of indentation")
                 | arg(sourceFile, "source file")("source file")
                 | help(showHelp);
@@ -95,7 +97,7 @@ int main(int argc, char* argv[])
         std::cout << cli << std::endl;
         return EXIT_SUCCESS;
     }
-    
+
     if(std::empty(sourceFile)){
         std::cout << "No source file defined" << std::endl;
         std::cout << cli << std::endl;
@@ -121,7 +123,7 @@ int main(int argc, char* argv[])
     checkMimeTypeForLanguage(path, language);
 
     AsciidocSnippetFileGenerator generator{path};
-    
+
     generator.skipEmptyLines(!enableEmptyLines)
         .skipSnippetDefinitions(!enableSnippetDefinitions)
         .skipBlockComments(!enableBlockComments)
@@ -152,6 +154,10 @@ int main(int argc, char* argv[])
 
     if(!std::empty(extractorSubDir)){
         generator.subDirectoryName(extractorSubDir);
+    }
+
+    if(!std::empty(projectSubDir)) {
+	generator.projectSubDir(projectSubDir);
     }
 
     if(indent > 0){

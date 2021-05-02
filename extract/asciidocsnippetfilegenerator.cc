@@ -101,8 +101,10 @@ bool AsciidocSnippetFileGenerator::generate()
         std::ofstream fileStream(snippetFilePath.string());
         if (fileStream.is_open()) {
             auto coNumber = size_t{1};
-            if (!mSkipSourceCaption) {
-                std::string caption = boost::replace_all_copy(mCaption, "%f", originalFilePath.filename().string());
+            if (!mSkipSourceCaption)
+                std::string caption{};
+                std::string tmp_caption = boost::replace_all_copy(mCaption, "%p", (std::empty(mProjectSubDir)) ? "" : std::string{"/"} + mProjectSubDir);
+                caption = boost::replace_all_copy(tmp_caption, "%f", originalFilePath.filename().string());
                 if (snippet.mName != "all") {
                     std::string s = "[Snippet: " + snippet.mName + "]";
                     boost::replace_all(caption, "%s", s);
