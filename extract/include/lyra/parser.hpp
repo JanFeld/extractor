@@ -105,7 +105,7 @@ namespace detail
 		{
 		}
 
-		bool is_optional() const { return (minimum == 0) && (maximum >= 0); }
+		bool is_optional() const { return (minimum == 0); }
 
 		bool is_unbounded() const { return (minimum == 0) && (maximum == 0); }
 
