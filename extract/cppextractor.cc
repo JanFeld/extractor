@@ -461,7 +461,7 @@ CppExtractor::Snippet::operator bool() const
 
 bool CppExtractor::Snippet::containsLine(size_t lineNumber) const
 {
-    for(const auto lineSpan: mLineSpans) {
+    for(const auto& lineSpan: mLineSpans) {
         if ((lineNumber >= lineSpan.first) && (lineNumber < lineSpan.second)) {
             return true;
         }
