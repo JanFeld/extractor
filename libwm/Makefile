@@ -22,20 +22,21 @@ ifdef NDEBUG
  CPPFLAGS += -DNDEBUG
 endif
 
-#LDLIBS += -lclangFrontendTool -lclangFrontend -lclangDriver -lclangSerialization -lclangCodeGen -lclangParse -lclangSema \
-#-lclangStaticAnalyzerFrontend -lclangStaticAnalyzerCheckers -lclangStaticAnalyzerCore -lclangAnalysis -lclangIndex -lclangARCMigrate \
-#-lclangRewriteCore -lclangRewriteFrontend -lclangAST -lclangLex -lclangBasic -lclangTooling
+# LDLIBS += -lclangFrontendTool -lclangFrontend -lclangDriver -lclangSerialization -lclangCodeGen -lclangParse -lclangSema \
+# -lclangStaticAnalyzerFrontend -lclangStaticAnalyzerCheckers -lclangStaticAnalyzerCore -lclangAnalysis -lclangIndex -lclangARCMigrate \
+# -lclangRewriteCore -lclangRewriteFrontend -lclangAST -lclangLex -lclangBasic -lclangTooling
 
-#LDLIBS +=  -lclangFrontend -lclangSerialization -lclangDriver -lclangParse -lclangSema -lclangStaticAnalyzerFrontend \
-#           -lclangAnalysis -lclangRewriteFrontend -lclangEdit -lclangAST -lclangLex -lclangBasic -lclangASTMatchers -lclangDriver -lclangTooling
+# LDLIBS +=  -lclangFrontend -lclangSerialization -lclangDriver -lclangParse -lclangSema -lclangStaticAnalyzerFrontend \
+           # -lclangAnalysis -lclangRewriteFrontend -lclangEdit -lclangAST -lclangLex -lclangBasic -lclangASTMatchers -lclangDriver -lclangTooling
 
-#LDLIBS += $(shell llvm-config  --libs)
+# LDLIBS += $(shell llvm-config  --libs)
 
 #LDLIBS += -lwm
 LDFLAGS += -Wl,-rpath,$(shell pwd) -L$(shell pwd)
+LDFLAGS += -L/usr/local/lib -v
 
 LDLIBS += -lstdc++ -lm -ldl -lpthread -lmagic #-lcurses
-LDLIBS += -lstdc++fs
+#LDLIBS += -lstdc++fs
 #LDLIBS += -lboost_filesystem -lboost_system -lboost_regex
 #LDLIBS += -lLLVM-3.4
 #LDLIBS += -lclang
@@ -58,10 +59,10 @@ ccdeps    = $(patsubst %.cc, %.d, $(ccsources))
 objects   = $(patsubst %.cc, %.o, $(ccsources))
 
 libwm.so: $(objects)
-	$(LINK.cc) $(CXXFLAGS) $(LDFLAGS) -shared $(objects) -o $@
+	$(LINK.cc) $(CXXFLAGS) $(LDFLAGS) -shared $(objects) /usr/local/lib/libmagic.a /usr/local/Cellar/zlib/1.2.11/lib/libz.a /usr/local/Cellar/bzip2/1.0.8/lib/libbz2.a -o $@
 
 libwm.a: $(objects)
-	$(AR) cqs $@ $+
+	$(AR) cqs $@ $+ /usr/local/lib/libmagic.a /usr/local/Cellar/zlib/1.2.11/lib/libz.a /usr/local/Cellar/bzip2/1.0.8/lib/libbz2.a
 
 libwmtests: $(objects)
 

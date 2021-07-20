@@ -194,11 +194,11 @@ bool CppExtractor::parse()
     std::regex highlightSectionExcludeRegex(R"(\s-\*)");                              // match: -*
 //    std::regex highlightInlineMatchRegex(R"(//\*=)");
     std::string scopeSymbol{"::"};
-    std::string scopeSymbolReplacement{"_"};        
+    std::string scopeSymbolReplacement{"_"};
 
     Trace(Tracer::TraceLevel::trace) << "skip block comments" << mSkipBlockComments;
-    
-    
+
+
     std::ifstream fileStream(mPath.string());
     if (fileStream.is_open()) {
         auto status = ParsingStatus::Normal;
@@ -279,7 +279,7 @@ bool CppExtractor::parse()
 
                     if(boost::contains(snippetName, scopeSymbol)){
                         boost::replace_all(const_cast<std::string&>(snippetName), scopeSymbol, scopeSymbolReplacement);
-                    } 
+                    }
 
                     snippets.push(std::make_pair(lineNumber, snippetName));
 

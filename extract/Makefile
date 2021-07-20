@@ -14,7 +14,7 @@ ifeq (${CXX}, clang++)
  LDFLAGS += -fsanitize=undefined
 else
 # CXXFLAGS += -g -Wall -Wextra -Wconversion -pedantic -std=c++17 -fdiagnostics-color
- #CXXFLAGS += -g -Wall -Wextra -Wconversion -fconcepts -std=c++17 
+ #CXXFLAGS += -g -Wall -Wextra -Wconversion -fconcepts -std=c++17
  CXXFLAGS += -g -Wall -Wextra -Wconversion -std=c++20 -fPIC
 endif
 
@@ -26,11 +26,12 @@ CPPFLAGS += -I../libwm
 CPPFLAGS += -I./include
 CPPFLAGS += -I./lyra
 
-LDLIBS += -lm -lstdc++ -lstdc++fs
+LDLIBS += -lm -lstdc++ #-lstdc++fs
 #LDLIBS += -lboost_system # -lboost_filesystem  -lboost_program_options
 LDLIBS += -lmagic
-LDLIBS += -lastyle
+#LDLIBS += -lastyle
 LDLIBS += ../libwm/libwm.a
+LDLIBS += ./libastyle.a
 
 all: $(targets) ${subdirs}
 
